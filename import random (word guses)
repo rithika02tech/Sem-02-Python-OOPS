@@ -1,0 +1,32 @@
+import random
+word_list = ["whity", "rithika", "asia", "tharini", "mithra"]
+guessed_letters = []
+guesses_left = 6
+word_to_guess = random.choice(word_list)
+word_length = len(word_to_guess)
+hidden_word = list("_" * word_length)
+
+while guesses_left > 0:
+    print(f"\nYou have {guesses_left} guesses left")
+    print(f"The word so far: {' '.join(hidden_word)}")  # Shows hidden word with underscores
+    print(f"Guessed letters: {', '.join(guessed_letters)}")  # Shows guessed letters
+    guess = input("Enter a letter: ").lower()
+
+    if guess in word_to_guess:
+        indices = [i for i, x in enumerate(word_to_guess) if x == guess]
+        for index in indices:
+            hidden_word[index] = guess
+        
+        if "_" not in hidden_word:
+            print('\nCongratulations! You guessed the word!')
+            print(" ".join(hidden_word))  # Show the full word
+            break
+    else:
+        guesses_left -= 1  # Deduct a guess only if the letter is incorrect
+
+    if guesses_left == 0:
+        print("\nYou ran out of guesses!")
+        print(f"The word was {word_to_guess}")
+        break
+
+    guessed_letters.append(guess)  # Append guessed letter outside the if-else
